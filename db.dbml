@@ -1,0 +1,27 @@
+Project Tender {
+  database_type: 'PostgreSQL'
+  Note: '''
+    # Stock Recommendation Database
+  '''
+}
+enum risk_status {
+    LOW
+    MEDIUM
+    HIGH
+}
+Table users as U {
+  id varchar(255) [pk, unique,note: 'uuid']
+  full_name varchar
+  email_id varchar
+  mobile_number varchar
+  country_code varchar
+  password varchar [note: 'encrypted']
+  is_mobile_verified boolean
+  is_email_verified boolean
+  mobile_otp varchar
+  email_otp varchar
+  risk_status risk_status [note: 'null']
+  created_at timestamp
+  updated_at timestamp
+  note: "table 'users' contains user information"
+}
