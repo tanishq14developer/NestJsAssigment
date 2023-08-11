@@ -22,17 +22,27 @@ export class WatchLaterService {
         private readonly videoService: VideosService,
     ) { }
 
-    async createWatchLater(createVideoDto: CreateWatchLaterDto, request: CommonRequestUser): Promise<ApiResponse<WatchLaterResponse>> {
+    async createWatchLater(createVideoDto: CreateWatchLaterDto, request: CommonRequestUser): Promise<ApiResponse<WatchLaterResponse | null>> {
         try {
             const id = request.user.id;
 
             // Ensure that the user exists
             const user = await this.userService.findOne(id);
             if (!user) {
-                throw new NotFoundException('User not found');
+                return new ApiResponse<WatchLaterResponse | null>(null, {
+                    message: 'failure',
+                    displayMessage: "User not found",
+                });
             }
             const videoId = createVideoDto.videoId;
             const video = await this.videoService.findByVideoId(videoId);
+
+            if (!video) {
+                return new ApiResponse<WatchLaterResponse | null>(null, {
+                    message: 'failure',
+                    displayMessage: "Video not found with the given id",
+                });
+            }
             // Create the WatchLater entry and associate it with the user and video
             const watchLater = new WatchLater();
             watchLater.userId = user;
