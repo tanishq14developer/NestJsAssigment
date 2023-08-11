@@ -23,13 +23,13 @@ export function setupSwagger(app: INestApplication): void {
     }
 
     const document = SwaggerModule.createDocument(app, documentBuilder.build());
-    SwaggerModule.setup('documentation', app, document, {
+    SwaggerModule.setup('api/documentation', app, document, {
         swaggerOptions: {
             persistAuthorization: true,
         },
     });
 
     console.info(
-        `Documentation: http://localhost:${process.env.PORT}/documentation`,
+        `Documentation: http://localhost:${process.env.PORT}//api/documentation`,
     );
 }
