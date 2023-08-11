@@ -1,0 +1,159 @@
+{
+  "name": "tender_api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "",
+  "author": "Tanishq Chawda",
+  "private": true,
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "nest build",
+    "build:prod": "tsc -p tsconfig.build.json",
+    "build:docker": "yarn build && docker build -t tender/$npm_package_name:latest . && docker push tender/$npm_package_name:latest",
+    "start": "nest start",
+    "start:dev": "nest build --webpack --webpackPath webpack-hmr.config.js --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node -r newrelic dist/main",
+    "typeorm": "typeorm-ts-node-esm",
+    "migration:generate": "yarn run typeorm migration:generate -d ormconfig",
+    "migration:create": "yarn run typeorm migration:create -d ormconfig",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint --fix . --ext .ts",
+    "format": "yarn lint --fix",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json --runInBand"
+  },
+  "dependencies": {
+    "@fastify/compress": "^6.2.0",
+    "@fastify/helmet": "^10.1.0",
+    "@fastify/static": "^6.6.1",
+    "@nestjs/axios": "^3.0.0",
+    "@nestjs/common": "^9.2.1",
+    "@nestjs/config": "^2.2.0",
+    "@nestjs/core": "^9.2.1",
+    "@nestjs/jwt": "^10.0.1",
+    "@nestjs/passport": "^9.0.0",
+    "@nestjs/platform-express": "^9.2.1",
+    "@nestjs/platform-fastify": "^9.2.1",
+    "@nestjs/schedule": "^3.0.2",
+    "@nestjs/swagger": "^6.1.4",
+    "@nestjs/typeorm": "^9.0.1",
+    "axios": "^1.4.0",
+    "bcrypt": "^5.1.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "compression": "^1.7.4",
+    "express-ctx": "^0.1.1",
+    "express-rate-limit": "^6.7.0",
+    "fastify-swagger": "^5.2.0",
+    "helmet": "^6.0.1",
+    "lodash": "^4.17.21",
+    "morgan": "^1.10.0",
+    "nest-schedule": "^0.6.4",
+    "nest-winston": "^1.8.0",
+    "newrelic": "^9.8.0",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.7.1",
+    "prettier": "^2.7.1",
+    "reflect-metadata": "^0.1.13",
+    "response-time": "^2.3.2",
+    "rimraf": "^3.0.2",
+    "rxjs": "^7.4.0",
+    "swagger-ui-express": "^4.3.0",
+    "typeorm": "^0.3.11",
+    "uuid": "^9.0.0",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^10.1.11",
+    "@nestjs/schematics": "^8.0.5",
+    "@nestjs/testing": "^9.2.1",
+    "@types/bcrypt": "^5.0.0",
+    "@types/compression": "^1.7.2",
+    "@types/jest": "^27.5.2",
+    "@types/lodash": "^4.14.178",
+    "@types/morgan": "^1.9.4",
+    "@types/newrelic": "^9.4.0",
+    "@types/node": "^16",
+    "@types/passport-jwt": "^3.0.6",
+    "@types/passport-local": "^1.0.34",
+    "@types/response-time": "^2.3.5",
+    "@types/supertest": "^2.0.12",
+    "@types/uuid": "^9.0.0",
+    "@types/webpack-env": "^1.18.0",
+    "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "@typescript-eslint/parser": "^5.8.0",
+    "eslint": "^8.5.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^25.3.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^5.2.0",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-sonarjs": "^0.18.0",
+    "eslint-plugin-standard": "^5.0.0",
+    "eslint-plugin-unicorn": "^45.0.2",
+    "jest": "^27.4.5",
+    "run-script-webpack-plugin": "^0.1.1",
+    "supertest": "^6.1.6",
+    "ts-jest": "^27.1.2",
+    "ts-loader": "^9.2.6",
+    "ts-node": "^10.4.0",
+    "tsconfig-paths": "^3.12.0",
+    "typescript": "^4.5.4",
+    "webpack": "^5.75.0",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "./tsconfig.json",
+      "tsconfigRootDir": "./"
+    },
+    "plugins": [
+      "@typescript-eslint",
+      "jest"
+    ],
+    "extends": [
+      "plugin:@typescript-eslint/recommended",
+      "plugin:jest/recommended",
+      "standard"
+    ],
+    "rules": {
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ],
+      "no-useless-constructor": "off",
+      "@typescript-eslint/explicit-function-return-type": "off"
+    }
+  },
+  "eslintIgnore": [
+    "node_modules",
+    "dist",
+    "coverage"
+  ],
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "modulePaths": [
+      "<rootDir>/"
+    ],
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "<rootDir>/../coverage",
+    "testEnvironment": "node"
+  }
+}
