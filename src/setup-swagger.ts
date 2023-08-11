@@ -30,6 +30,6 @@ export function setupSwagger(app: INestApplication): void {
     });
 
     console.info(
-        `Documentation: http://localhost:${process.env.PORT}//api/documentation`,
+        `Documentation: http://localhost:${process.env.PORT}/api/documentation`,
     );
 }
